@@ -1,0 +1,11 @@
+#method 1
+SELECT buyer_id
+FROM sales as s 
+JOIN product as p ON s.product_id = p.product_id
+GROUP BY buyer_id
+HAVING SUM(product_name = 'S8') > 0 SUM(product_name != 'IPHONE') = 0;
+
+#method 2
+SELECT DISTINCT buyer_id
+FROM sales s JOIN product p ON p.product_id = s.product_id
+WHERE p.product_name = 'S8' AND s.buyer_id NOT IN ( SELECT buyer_id FROM sales s JOIN product p ON p.product_id = s.product_id WHERE product_name = 'iPHONE');
